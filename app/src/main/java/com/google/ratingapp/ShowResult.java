@@ -22,9 +22,26 @@ public class ShowResult extends AppCompatActivity {
         final TextView journeyReview = (TextView) findViewById(R.id.textView11);
         final TextView driverReview = (TextView) findViewById(R.id.textView14);
 
-        carRating.setText(String.valueOf(extraFromMain.getFloat("carRating")));
-        journeyRating.setText(String.valueOf(extraFromMain.getFloat("journeyExperienceRating")));
-        driverRating.setText(String.valueOf(extraFromMain.getFloat("driverRating")));
+        if(extraFromMain.getFloat("carRating") != -1) {
+            carRating.setText(String.valueOf(extraFromMain.getFloat("carRating")));
+        }
+        else{
+            carRating.setText("");
+        }
+
+        if(extraFromMain.getFloat("journeyExperienceRating") != -1) {
+            journeyRating.setText(String.valueOf(extraFromMain.getFloat("journeyExperienceRating")));
+        }
+        else{
+            journeyRating.setText("");
+        }
+
+        if(extraFromMain.getFloat("driverRating") != -1) {
+            driverRating.setText(String.valueOf(extraFromMain.getFloat("driverRating")));
+        }
+        else{
+            driverRating.setText("");
+        }
 
         carReview.setText(extraFromMain.getString("carReview"));
         journeyReview.setText(extraFromMain.getString("journeyExperienceReview"));

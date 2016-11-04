@@ -58,44 +58,6 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Car Review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Car_Review"
-        android:layout_below="@+id/Driver_Rating"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="62dp"
-        android:textStyle="normal|bold" />
-
-    <TextView
-        android:text="Journey Review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:id="@+id/Journey_Review"
-        android:textStyle="normal|bold"
-        android:layout_below="@+id/Car_Review"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/Driver_Review"
-        android:layout_alignEnd="@+id/textView11"
-        android:id="@+id/textView14" />
-
-    <TextView
-        android:text="Driver Review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Driver_Review"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/Journey_Review"
-        android:layout_alignParentStart="true"
-        android:textStyle="normal|bold" />
-
-    <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,19 +70,57 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView11"
-        android:layout_alignBaseline="@+id/Journey_Review"
-        android:layout_alignBottom="@+id/Journey_Review"
-        android:layout_alignStart="@+id/textView9" />
+        android:id="@+id/textView9"
+        android:layout_below="@+id/Car_Review"
+        android:layout_alignEnd="@+id/Car_Review"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:text="Journey Review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Journey_Review"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Car Review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Car_Review"
+        android:layout_marginTop="65dp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/Driver_Rating"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:layout_alignBaseline="@+id/Car_Review"
-        android:layout_alignBottom="@+id/Car_Review"
-        android:layout_toEndOf="@+id/textView6"
-        android:layout_marginStart="12dp" />
+        android:id="@+id/textView11"
+        android:layout_below="@+id/Journey_Review"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_marginTop="13dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:layout_below="@+id/Driver_Review"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:text="Driver Review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Driver_Review"
+        android:textStyle="normal|bold"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

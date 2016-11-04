@@ -7,6 +7,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -21,67 +23,90 @@ public class RateCarActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_car);
-        final Button btn2 = (Button) findViewById(R.id.carButton);
-        final EditText et2 = (EditText) findViewById(R.id.carEditText);
-        final RatingBar r2 = (RatingBar) findViewById(R.id.carRatingBar);
-        final TextView tv2 = (TextView) findViewById(R.id.carTextView);
+
+        final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        final Counter counter = new Counter();
+        
+        final Button rateBtn = (Button) findViewById(R.id.carButton);
+        final Button skipBtn = (Button) findViewById(R.id.skipBtn);
+        final EditText reviewField = (EditText) findViewById(R.id.carEditText);
+        final RatingBar ratingBar = (RatingBar) findViewById(R.id.carRatingBar);
+        final TextView textView = (TextView) findViewById(R.id.carTextView);
+
+        final Bundle extraContainer = new Bundle();
+        final Intent intent = new Intent(RateCarActivity.this, RateDriverActivity.class);
+
+        final Intent intentFromOtherActivity = getIntent();
+        final Bundle extraFromOtherActivity = intentFromOtherActivity.getExtras();
 
 
+        reviewField.setVisibility(View.INVISIBLE);
+        reviewField.setEnabled(false);
+        reviewField.setScroller(new Scroller(this));
+        reviewField.setMaxLines(2);
+        reviewField.setVerticalScrollBarEnabled(true);
+        reviewField.setMovementMethod(new ScrollingMovementMethod());
 
-        et2.setVisibility(View.INVISIBLE);
-        et2.setEnabled(false);
-        et2.setScroller(new Scroller(this));
-        et2.setMaxLines(2);
-        et2.setVerticalScrollBarEnabled(true);
-        et2.setMovementMethod(new ScrollingMovementMethod());
+        rateBtn.setVisibility(View.INVISIBLE);
+        rateBtn.setEnabled(false);
 
-        btn2.setVisibility(View.INVISIBLE);
-        btn2.setEnabled(false);
-
-
-        final DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
-        final double dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-        r2.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                int r1Height = (int) (dpHeight * 0.5);
-                int viewRateCarHeight = (int) (dpHeight * 0.4);
-                Toast.makeText(RateCarActivity.this, "You Rate This Car " + String.valueOf(r2.getRating()) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(RateCarActivity.this, "You Rate This Car " + String.valueOf(ratingBar.getRating()) , Toast.LENGTH_SHORT).show();
+                if(counter.getCounter() == 0) {
 
+                    textView.animate().setDuration(500).translationY((float) (-2*(textView.getHeight()))).start();
 
-                r2.setY(r1Height);
-                r2.animate();
-                tv2.setY(viewRateCarHeight);
-                et2.setVisibility(View.VISIBLE);
-                et2.setEnabled(true);
-                btn2.setVisibility(View.VISIBLE);
-                btn2.setEnabled(true);
+                    ratingBar.animate().setDuration(500).translationY(-2*(textView.getHeight())).start();
+
+                    reviewField.setVisibility(View.VISIBLE);
+                    reviewField.startAnimation(animationFadeIn);
+                    reviewField.setEnabled(true);
+
+                    rateBtn.setVisibility(View.VISIBLE);
+                    rateBtn.startAnimation(animationFadeIn);
+                    rateBtn.setEnabled(true);
+
+                    counter.increament();
+                }
             }
         });
 
-        btn2.setOnClickListener(new View.OnClickListener() {
+        rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(RateCarActivity.this, RateDriverActivity.class);
-                Intent intentFromMain = getIntent();
-                Bundle extraFromMain = intentFromMain.getExtras();
-                Bundle extra2 = new Bundle();
-                String journeyReview = extraFromMain.getString("journeyExperienceReview");
-                Float journeyRating = extraFromMain.getFloat("journeyExperienceRating");
-                extra2.putFloat("carRating", r2.getRating());
-                extra2.putFloat("journeyExperienceRating", journeyRating);
-                if(!et2.getText().toString().equalsIgnoreCase("")){
-                    extra2.putString("carReview", et2.getText().toString());
-                    //Log.d("car Experience", "Input Successful");
-                }
-                if(journeyReview != null) {
-                    extra2.putString("journeyExperienceReview", journeyReview);
-                    //Log.d("journey exp","input for the second time");
-                }
-                intent2.putExtras(extra2);
-                startActivity(intent2);
+                //String journeyReview = extraFromOtherActivity.getString("journeyExperienceReview");
+                //Float journeyRating = extraFromOtherActivity.getFloat("journeyExperienceRating");
+                extraContainer.putFloat("carRating", ratingBar.getRating());
+                extraContainer.putFloat("journeyExperienceRating", extraFromOtherActivity.getFloat("journeyExperienceRating"));
+               // if(!reviewField.getText().toString().equalsIgnoreCase("")){
+                    extraContainer.putString("carReview", reviewField.getText().toString());
+                //}
+                //if(journeyReview != null) {
+                    extraContainer.putString("journeyExperienceReview", extraFromOtherActivity.getString("journeyExperienceReview"));
+               // }
+                intent.putExtras(extraContainer);
+                startActivity(intent);
             }
         });
+
+        skipBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extraContainer.putFloat("carRating", -1);
+                extraContainer.putFloat("journeyExperienceRating", -1);
+                // if(!reviewField.getText().toString().equalsIgnoreCase("")){
+                extraContainer.putString("carReview", null);
+                //}
+                //if(journeyReview != null) {
+                extraContainer.putString("journeyExperienceReview", null);
+                // }
+                intent.putExtras(extraContainer);
+                startActivity(intent);
+            }
+        });
+
     }
 }
 
