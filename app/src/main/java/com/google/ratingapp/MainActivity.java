@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 extra.putFloat("journeyExperienceRating", -1);
-                extra.putString("journeyExperienceReview", "");
+                extra.putString("journeyExperienceReview", null);
+                intent.putExtras(extra);
 
                 startActivity(intent);
             }

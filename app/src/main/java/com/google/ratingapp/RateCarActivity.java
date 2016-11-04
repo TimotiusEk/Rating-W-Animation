@@ -76,16 +76,13 @@ public class RateCarActivity extends AppCompatActivity {
         rateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String journeyReview = extraFromOtherActivity.getString("journeyExperienceReview");
-                //Float journeyRating = extraFromOtherActivity.getFloat("journeyExperienceRating");
                 extraContainer.putFloat("carRating", ratingBar.getRating());
                 extraContainer.putFloat("journeyExperienceRating", extraFromOtherActivity.getFloat("journeyExperienceRating"));
-               // if(!reviewField.getText().toString().equalsIgnoreCase("")){
-                    extraContainer.putString("carReview", reviewField.getText().toString());
-                //}
-                //if(journeyReview != null) {
-                    extraContainer.putString("journeyExperienceReview", extraFromOtherActivity.getString("journeyExperienceReview"));
-               // }
+
+                extraContainer.putString("carReview", reviewField.getText().toString());
+
+                extraContainer.putString("journeyExperienceReview", extraFromOtherActivity.getString("journeyExperienceReview"));
+
                 intent.putExtras(extraContainer);
                 startActivity(intent);
             }
@@ -96,12 +93,11 @@ public class RateCarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 extraContainer.putFloat("carRating", -1);
                 extraContainer.putFloat("journeyExperienceRating", -1);
-                // if(!reviewField.getText().toString().equalsIgnoreCase("")){
+
                 extraContainer.putString("carReview", null);
-                //}
-                //if(journeyReview != null) {
+
                 extraContainer.putString("journeyExperienceReview", null);
-                // }
+
                 intent.putExtras(extraContainer);
                 startActivity(intent);
             }

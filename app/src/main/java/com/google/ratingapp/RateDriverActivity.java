@@ -77,17 +77,11 @@ public class RateDriverActivity extends AppCompatActivity {
                 extraContainer.putFloat("carRating", extraFromOtherActivity.getFloat("carRating"));
                 extraContainer.putFloat("journeyExperienceRating", extraFromOtherActivity.getFloat("journeyExperienceRating"));
 
-                //if(!reviewField.getText().toString().equalsIgnoreCase("")){
                 extraContainer.putString("driverReview", reviewField.getText().toString());
-                //}
 
-                //if(extraFromOtherActivity.getString("journeyExperienceReview") != null) {
                 extraContainer.putString("carReview", extraFromOtherActivity.getString("carReview"));
-                //}
 
-                //if(extraFromOtherActivity.getString("carReview") != null) {
                 extraContainer.putString("journeyExperienceReview", extraFromOtherActivity.getString("journeyExperienceReview"));
-                // }
 
                 intent.putExtras(extraContainer);
                 startActivity(intent);
@@ -98,20 +92,34 @@ public class RateDriverActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 extraContainer.putFloat("driverRating", -1);
-                extraContainer.putFloat("carRating", -1);
-                extraContainer.putFloat("journeyExperienceRating", -1);
+                if(extraFromOtherActivity.getFloat("carRating") == -1) {
+                    extraContainer.putFloat("carRating", -1);
+                }
+                else{
+                    extraContainer.putFloat("carRating", extraFromOtherActivity.getFloat("carRating"));
+                }
 
-                //if(!reviewField.getText().toString().equalsIgnoreCase("")){
+                if(extraFromOtherActivity.getFloat("journeyExperienceRating") == -1){
+                    extraContainer.putFloat("journeyExperienceRating", -1);
+                }
+                else{
+                    extraContainer.putFloat("journeyExperienceRating", extraFromOtherActivity.getFloat("journeyExperienceRating"));
+                }
+
                 extraContainer.putString("driverReview", null);
-                //}
 
-                //if(extraFromOtherActivity.getString("journeyExperienceReview") != null) {
-                extraContainer.putString("carReview", null);
-                //}
-
-                //if(extraFromOtherActivity.getString("carReview") != null) {
-                extraContainer.putString("journeyExperienceReview", null);
-                // }
+                if(extraFromOtherActivity.getString("carReview") == null) {
+                    extraContainer.putString("carReview", null);
+                }
+                else{
+                    extraContainer.putString("carReview", extraFromOtherActivity.getString("carReview"));
+                }
+                if(extraFromOtherActivity.getString("journeyExperienceReview") == null ) {
+                    extraContainer.putString("journeyExperienceReview", null);
+                }
+                else{
+                    extraContainer.putString("journeyExperienceReview" , extraFromOtherActivity.getString("journeyExperienceReview"));
+                }
 
                 intent.putExtras(extraContainer);
                 startActivity(intent);
